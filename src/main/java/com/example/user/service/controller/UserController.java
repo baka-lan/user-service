@@ -1,10 +1,7 @@
 package com.example.user.service.controller;
 
 import com.example.user.service.dto.UserDTO;
-import com.example.user.service.mapper.UserMapper;
-import com.example.user.service.model.User;
-import com.example.user.service.repository.UserRepository;
-import org.springframework.beans.BeanUtils;
+import com.example.user.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,39 +10,35 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 public class UserController {
-    private final UserRepository userRepo;
-    private final UserMapper userMapper;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepo, UserMapper userMapper) {
-        this.userRepo = userRepo;
-        this.userMapper = userMapper;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
-    public List<UserDTO> list() {
-        return userMapper.userToDTO(userRepo.findAll());
+    public List<UserDTO> getAll() {
+        return userService.getAll();
     }
 
     @GetMapping("{id}")
-    public UserDTO getOne(@PathVariable("id") User user) {
-        return userMapper.userToDTO(user);
+    public UserDTO getOne(@PathVariable("id") long id) {
+        return userService.getOne(id);
     }
 
     @PostMapping
     public UserDTO create(@RequestBody UserDTO userDTO) {
-        return userMapper.userToDTO(userRepo.save(userMapper.dtoToUser(userDTO)));
+        return userService.create(userDTO);
     }
 
     @PutMapping("{id}")
-    public UserDTO update(@PathVariable("id") User userFromDb, @RequestBody UserDTO userDTO) {
-        UserDTO userFromDbDTO = userMapper.userToDTO(userFromDb);
-        BeanUtils.copyProperties(userMapper.dtoToUser(userDTO), userFromDbDTO, "id");
-        return userMapper.userToDTO(userRepo.save(userMapper.dtoToUser(userFromDbDTO)));
+    public UserDTO update(@PathVariable("id") long id, @RequestBody UserDTO userDTO) {
+        return userService.update(id, userDTO);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") User user) {
-        userRepo.delete(user);
+    public void delete(@PathVariable("id") long id) {
+        userService.delete(id);
     }
 }
