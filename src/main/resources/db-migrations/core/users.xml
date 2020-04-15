@@ -5,7 +5,7 @@
 
     <changeSet author="e.baklanov" id="2020-04-14--users-init">
         <createTable tableName="users" remarks="Email auth info">
-            <column name="id" type="BIGINT">
+            <column name="uuid" type="UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login" type="TEXT">

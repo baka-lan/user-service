@@ -1,17 +1,16 @@
 package com.example.user.service.mapper;
 
-import com.example.user.service.dto.UserDTO;
+import com.example.user.service.dto.UserData;
 import com.example.user.service.model.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    User dtoToUser(UserDTO userDTO);
-    UserDTO userToDTO(User user);
+    User userDataToUser(UserData userData);
+    UserData userToUserData(User user);
 
-    List<User> dtoToUser(List<UserDTO> userDTOList);
-    List<UserDTO> userToDTO(List<User> userList);
+    List<User> userDataToUser(List<UserData> userDataList);
+    List<UserData> userToUserData(List<User> userList);
 }

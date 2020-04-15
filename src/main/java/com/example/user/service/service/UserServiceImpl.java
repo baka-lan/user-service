@@ -1,6 +1,6 @@
 package com.example.user.service.service;
 
-import com.example.user.service.dto.UserDTO;
+import com.example.user.service.dto.UserData;
 import com.example.user.service.mapper.UserMapper;
 import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,31 +23,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getAll() {
-        return userMapper.userToDTO(userRepo.findAll());
+    public List<UserData> getAll() {
+        return userMapper.userToUserData(userRepo.findAll());
     }
 
     @Override
-    public UserDTO getOne(long id) {
-        User user = userRepo.getOne(id);
-        return userMapper.userToDTO(user);
+    public UserData getOne(UUID uuid) {
+        User user = userRepo.getOne(uuid);
+        return userMapper.userToUserData(user);
     }
 
     @Override
-    public UserDTO create(UserDTO userDTO) {
-        return userMapper.userToDTO(userRepo.save(userMapper.dtoToUser(userDTO)));
+    public UserData create(UserData userData) {
+        return userMapper.userToUserData(userRepo.save(userMapper.userDataToUser(userData)));
     }
 
     @Override
-    public UserDTO update(long id, UserDTO userDTO) {
-        User userFromDb = userRepo.getOne(id);
-        UserDTO userFromDbDTO = userMapper.userToDTO(userFromDb);
-        BeanUtils.copyProperties(userMapper.dtoToUser(userDTO), userFromDbDTO, "id");
-        return userMapper.userToDTO(userRepo.save(userMapper.dtoToUser(userFromDbDTO)));
+    public UserData update(UUID uuid, UserData userData) {
+        User userFromDb = userRepo.getOne(uuid);
+        BeanUtils.copyProperties(userMapper.userDataToUser(userData), userFromDb, "uuid");
+        return userMapper.userToUserData(userRepo.save(userFromDb));
     }
 
     @Override
-    public void delete(long id) {
-        userRepo.delete(userRepo.getOne(id));
+    public void delete(UUID uuid) {
+        userRepo.delete(userRepo.getOne(uuid));
     }
 }

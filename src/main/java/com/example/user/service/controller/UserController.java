@@ -1,11 +1,12 @@
 package com.example.user.service.controller;
 
-import com.example.user.service.dto.UserDTO;
+import com.example.user.service.dto.UserData;
 import com.example.user.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("user")
@@ -18,27 +19,27 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDTO> getAll() {
+    public List<UserData> getAll() {
         return userService.getAll();
     }
 
-    @GetMapping("{id}")
-    public UserDTO getOne(@PathVariable("id") long id) {
-        return userService.getOne(id);
+    @GetMapping("{uuid}")
+    public UserData getOne(@PathVariable("uuid") String uuid) {
+        return userService.getOne(UUID.fromString(uuid));
     }
 
     @PostMapping
-    public UserDTO create(@RequestBody UserDTO userDTO) {
-        return userService.create(userDTO);
+    public UserData create(@RequestBody UserData userData) {
+        return userService.create(userData);
     }
 
-    @PutMapping("{id}")
-    public UserDTO update(@PathVariable("id") long id, @RequestBody UserDTO userDTO) {
-        return userService.update(id, userDTO);
+    @PutMapping("{uuid}")
+    public UserData update(@PathVariable("uuid") String uuid, @RequestBody UserData userData) {
+        return userService.update(UUID.fromString(uuid), userData);
     }
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") long id) {
-        userService.delete(id);
+    @DeleteMapping("{uuid}")
+    public void delete(@PathVariable("uuid") String uuid) {
+        userService.delete(UUID.fromString(uuid));
     }
 }
