@@ -9,12 +9,10 @@ import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,8 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<UserData> getAll(Pageable pageable) {
-        List<UserData> userDataList = userMapper.userToUserData(userRepo.findAllByDeleted(false));
-        return new PageImpl<>(userDataList, pageable, userDataList.size());
+        Page<User> userPage = userRepo.findAllByDeleted(false, pageable);
+        return userPage.map(userMapper::userToUserData);
     }
 
     @Override
@@ -44,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserData update(UUID uuid, UserUpdateCommand userUpdateCommand) {
-        User user = userRepo.getOne(uuid);
+        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
         String login = userUpdateCommand.getLogin();
         if (!login.isEmpty()) {
             user.setLogin(login);
@@ -55,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserData changePassword(UUID uuid, UserChangePasswordCommand userChangePasswordCommand)
             throws IllegalAccessException {
-        User user = userRepo.getOne(uuid);
+        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
         if (passwordEncoder.matches(userChangePasswordCommand.getOldPass(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(userChangePasswordCommand.getNewPass()));
         } else {
