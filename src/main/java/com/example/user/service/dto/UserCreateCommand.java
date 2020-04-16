@@ -2,11 +2,8 @@ package com.example.user.service.dto;
 
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
-public class UserData {
-    private UUID uuid;
+public class UserCreateCommand {
     private String login;
     private String password;
 }

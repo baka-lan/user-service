@@ -1,6 +1,8 @@
 package com.example.user.service.controller;
 
+import com.example.user.service.dto.UserCreateCommand;
 import com.example.user.service.dto.UserData;
+import com.example.user.service.dto.UserUpdateCommand;
 import com.example.user.service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +27,13 @@ public class UserController {
     }
 
     @PostMapping
-    public UserData create(@RequestBody UserData userData) {
-        return userService.create(userData);
+    public UserData create(@RequestBody UserCreateCommand userCreateCommand) {
+        return userService.create(userCreateCommand);
     }
 
     @PutMapping("{uuid}")
-    public UserData update(@PathVariable("uuid") String uuid, @RequestBody UserData userData) {
-        return userService.update(UUID.fromString(uuid), userData);
+    public UserData update(@PathVariable("uuid") String uuid, @RequestBody UserUpdateCommand userUpdateCommand) {
+        return userService.update(UUID.fromString(uuid), userUpdateCommand);
     }
 
     @DeleteMapping("{uuid}")

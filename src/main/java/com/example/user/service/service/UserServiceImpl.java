@@ -1,6 +1,8 @@
 package com.example.user.service.service;
 
+import com.example.user.service.dto.UserCreateCommand;
 import com.example.user.service.dto.UserData;
+import com.example.user.service.dto.UserUpdateCommand;
 import com.example.user.service.mapper.UserMapper;
 import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
@@ -29,14 +31,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserData create(UserData userData) {
-        return userMapper.userToUserData(userRepo.save(userMapper.userDataToUser(userData)));
+    public UserData create(UserCreateCommand userCreateCommand) {
+        return userMapper.userToUserData(userRepo.save(userMapper.userCreateCommandToUser(userCreateCommand)));
     }
 
     @Override
-    public UserData update(UUID uuid, UserData userData) {
+    public UserData update(UUID uuid, UserUpdateCommand userUpdateCommand) {
         User userFromDb = userRepo.getOne(uuid);
-        BeanUtils.copyProperties(userMapper.userDataToUser(userData), userFromDb, "uuid");
+        String login = userUpdateCommand.getLogin();
+        if (!login.isEmpty()) {
+            userFromDb.setLogin(login);
+        }
         return userMapper.userToUserData(userRepo.save(userFromDb));
     }
 
