@@ -2,7 +2,7 @@ package com.example.user.service.controller;
 
 import com.example.user.service.dto.UserData;
 import com.example.user.service.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,13 +10,9 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("user")
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping
     public List<UserData> getAll() {
