@@ -8,5 +8,4 @@ import java.util.UUID;
 public class UserData {
     private UUID uuid;
     private String login;
-    private String password;
 }

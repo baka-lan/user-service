@@ -1,10 +1,12 @@
 package com.example.user.service.controller;
 
+import com.example.user.service.dto.UserChangePasswordCommand;
 import com.example.user.service.dto.UserCreateCommand;
 import com.example.user.service.dto.UserData;
 import com.example.user.service.dto.UserUpdateCommand;
 import com.example.user.service.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +38,21 @@ public class UserController {
         return userService.update(UUID.fromString(uuid), userUpdateCommand);
     }
 
+    @PutMapping("{uuid}/change-password")
+    public UserData changePassword(@PathVariable("uuid") String uuid,
+                           @RequestBody UserChangePasswordCommand userChangePasswordCommand)
+            throws IllegalAccessException {
+        return userService.changePassword(UUID.fromString(uuid), userChangePasswordCommand);
+    }
+
     @DeleteMapping("{uuid}")
     public void delete(@PathVariable("uuid") String uuid) {
         userService.delete(UUID.fromString(uuid));
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "IllegalAccessException exception! check arguments!")
+    @ExceptionHandler(value ={IllegalAccessException.class})
+    public void handleIOException() {
+        System.out.println("IllegalAccessException handler executed");
     }
 }

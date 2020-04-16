@@ -1,5 +1,6 @@
 package com.example.user.service.service;
 
+import com.example.user.service.dto.UserChangePasswordCommand;
 import com.example.user.service.dto.UserCreateCommand;
 import com.example.user.service.dto.UserData;
 import com.example.user.service.dto.UserUpdateCommand;
@@ -19,6 +20,10 @@ public interface UserService {
 
     @Transactional
     UserData update(UUID uuid, UserUpdateCommand userUpdateCommand);
+
+    @Transactional
+    UserData changePassword(UUID uuid, UserChangePasswordCommand userChangePasswordCommand)
+            throws IllegalAccessException;
 
     @Transactional
     void delete(UUID uuid);
