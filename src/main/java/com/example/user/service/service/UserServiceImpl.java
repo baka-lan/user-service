@@ -7,7 +7,6 @@ import com.example.user.service.mapper.UserMapper;
 import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserData> getAll() {
-        return userMapper.userToUserData(userRepo.findAll());
+        return userMapper.userToUserData(userRepo.findAllByDeleted(false));
     }
 
     @Override
     public UserData getOne(UUID uuid) {
-        User user = userRepo.getOne(uuid);
+        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
         return userMapper.userToUserData(user);
     }
 
@@ -47,6 +46,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(UUID uuid) {
-        userRepo.delete(userRepo.getOne(uuid));
+        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
+        user.setDeleted(true);
+        userRepo.save(user);
     }
 }

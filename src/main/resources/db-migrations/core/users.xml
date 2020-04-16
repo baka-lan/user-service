@@ -16,5 +16,10 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="2020-04-16--01--users-add-delete-column" author="e.baklanov">
+        <addColumn tableName="users">
+            <column name="deleted" type="BOOLEAN" defaultValueBoolean="false" />
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
