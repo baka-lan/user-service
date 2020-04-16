@@ -8,6 +8,9 @@ import com.example.user.service.mapper.UserMapper;
 import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +25,9 @@ public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
-    public List<UserData> getAll() {
-        return userMapper.userToUserData(userRepo.findAllByDeleted(false));
+    public Page<UserData> getAll(Pageable pageable) {
+        List<UserData> userDataList = userMapper.userToUserData(userRepo.findAllByDeleted(false));
+        return new PageImpl<>(userDataList, pageable, userDataList.size());
     }
 
     @Override

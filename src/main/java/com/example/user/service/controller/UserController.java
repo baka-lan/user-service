@@ -6,10 +6,12 @@ import com.example.user.service.dto.UserData;
 import com.example.user.service.dto.UserUpdateCommand;
 import com.example.user.service.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,8 +21,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<UserData> getAll() {
-        return userService.getAll();
+    public Page<UserData> getAll(@PageableDefault Pageable pageable) {
+        return userService.getAll(pageable);
     }
 
     @GetMapping("{uuid}")
