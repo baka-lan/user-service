@@ -6,6 +6,7 @@ import com.example.user.service.dto.UserData;
 import com.example.user.service.dto.UserUpdateCommand;
 import com.example.user.service.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping("user")
 @RequiredArgsConstructor
@@ -56,6 +58,6 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "IllegalAccessException exception! check arguments!")
     @ExceptionHandler(value ={IllegalAccessException.class})
     public void handleIOException() {
-        System.out.println("IllegalAccessException handler executed");
+        log.error("IllegalAccessException handler executed");
     }
 }
