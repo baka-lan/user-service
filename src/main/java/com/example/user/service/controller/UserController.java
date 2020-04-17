@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -31,18 +32,18 @@ public class UserController {
     }
 
     @PostMapping
-    public UserData create(@RequestBody UserCreateCommand userCreateCommand) {
+    public UserData create(@RequestBody @Valid UserCreateCommand userCreateCommand) {
         return userService.create(userCreateCommand);
     }
 
     @PutMapping("{uuid}")
-    public UserData update(@PathVariable("uuid") UUID uuid, @RequestBody UserUpdateCommand userUpdateCommand) {
+    public UserData update(@PathVariable("uuid") UUID uuid, @RequestBody @Valid UserUpdateCommand userUpdateCommand) {
         return userService.update(uuid, userUpdateCommand);
     }
 
     @PutMapping("{uuid}/change-password")
     public UserData changePassword(@PathVariable("uuid") UUID uuid,
-                           @RequestBody UserChangePasswordCommand userChangePasswordCommand)
+                           @RequestBody @Valid UserChangePasswordCommand userChangePasswordCommand)
             throws IllegalAccessException {
         return userService.changePassword(uuid, userChangePasswordCommand);
     }
