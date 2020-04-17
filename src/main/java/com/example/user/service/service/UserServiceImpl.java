@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserData getOne(UUID uuid) {
-        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
+        User user = getUser(uuid);
         return userMapper.userToUserData(user);
     }
 
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserData update(UUID uuid, UserUpdateCommand userUpdateCommand) {
-        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
+        User user = getUser(uuid);
         String login = userUpdateCommand.getLogin();
         if (!login.isEmpty()) {
             user.setLogin(login);
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserData changePassword(UUID uuid, UserChangePasswordCommand userChangePasswordCommand)
             throws IllegalAccessException {
-        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
+        User user = getUser(uuid);
         if (passwordEncoder.matches(userChangePasswordCommand.getOldPass(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(userChangePasswordCommand.getNewPass()));
         } else {
@@ -69,8 +69,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void delete(UUID uuid) {
-        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
+        User user = getUser(uuid);
         user.setDeleted(true);
         userRepo.save(user);
+    }
+
+    private User getUser(UUID uuid) {
+        return userRepo.findOneByUuidAndDeleted(uuid, false);
     }
 }
