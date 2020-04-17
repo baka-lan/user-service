@@ -4,6 +4,8 @@ import com.example.user.service.dto.UserChangePasswordCommand;
 import com.example.user.service.dto.UserCreateCommand;
 import com.example.user.service.dto.UserData;
 import com.example.user.service.dto.UserUpdateCommand;
+import com.example.user.service.exceptions.InvalidOldPasswordException;
+import com.example.user.service.exceptions.UserNotFoundException;
 import com.example.user.service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,9 +57,15 @@ public class UserController {
         userService.delete(uuid);
     }
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "IllegalAccessException exception! check arguments!")
-    @ExceptionHandler(value ={IllegalAccessException.class})
-    public void handleIOException() {
-        log.error("IllegalAccessException handler executed");
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "InvalidOldPasswordException exception! check arguments!")
+    @ExceptionHandler(value ={InvalidOldPasswordException.class})
+    public void handleIOException(InvalidOldPasswordException passwordException) {
+        log.error(passwordException.getMessage());
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "UserNotFoundException exception! check arguments!")
+    @ExceptionHandler(value ={UserNotFoundException.class})
+    public void handleIOException(UserNotFoundException userNotFoundException) {
+        log.error(userNotFoundException.getMessage());
     }
 }

@@ -4,6 +4,8 @@ import com.example.user.service.dto.UserChangePasswordCommand;
 import com.example.user.service.dto.UserCreateCommand;
 import com.example.user.service.dto.UserData;
 import com.example.user.service.dto.UserUpdateCommand;
+import com.example.user.service.exceptions.InvalidOldPasswordException;
+import com.example.user.service.exceptions.UserNotFoundException;
 import com.example.user.service.mapper.UserMapper;
 import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
@@ -55,13 +57,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserData changePassword(UUID uuid, UserChangePasswordCommand userChangePasswordCommand)
-            throws IllegalAccessException {
+    public UserData changePassword(UUID uuid, UserChangePasswordCommand userChangePasswordCommand) {
         User user = getUser(uuid);
         if (passwordEncoder.matches(userChangePasswordCommand.getOldPass(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(userChangePasswordCommand.getNewPass()));
         } else {
-            throw new IllegalAccessException();
+            throw new InvalidOldPasswordException("Old password is not correct");
         }
         return userMapper.userToUserData(userRepo.save(user));
     }
@@ -75,6 +76,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private User getUser(UUID uuid) {
-        return userRepo.findOneByUuidAndDeleted(uuid, false);
+        User user = userRepo.findOneByUuidAndDeleted(uuid, false);
+        if (null != user) {
+            return user;
+        } else {
+            throw new UserNotFoundException("User not found");
+        }
     }
 }
