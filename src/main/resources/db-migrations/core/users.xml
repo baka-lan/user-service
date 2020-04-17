@@ -21,5 +21,16 @@
             <column name="deleted" type="BOOLEAN" defaultValueBoolean="false" />
         </addColumn>
     </changeSet>
+    <changeSet id="2020-04-17--01--users-add-initial-data" author="e.baklanov">
+        <loadData
+                file="classpath:db-migrations/data/csv/users.csv"
+                separator=","
+                tableName="users">
+            <column header="uuid" name="uuid" type="STRING" />
+            <column header="login" name="login" type="STRING" />
+            <column header="password" name="password" type="STRING" />
+            <column header="deleted" name="deleted" type="BOOLEAN" />
+        </loadData>
+    </changeSet>
 
 </databaseChangeLog>

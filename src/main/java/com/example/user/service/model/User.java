@@ -19,6 +19,6 @@ public class User {
     private String password;
 
     @Column(name = "deleted", nullable = false)
-    private boolean deleted = false;
+    private Boolean deleted = false;
 
 }
