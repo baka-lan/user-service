@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -35,12 +36,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserData create(UserCreateCommand userCreateCommand) {
         userCreateCommand.setPassword(passwordEncoder.encode(userCreateCommand.getPassword()));
         return userMapper.userToUserData(userRepo.save(userMapper.userCreateCommandToUser(userCreateCommand)));
     }
 
     @Override
+    @Transactional
     public UserData update(UUID uuid, UserUpdateCommand userUpdateCommand) {
         User user = userRepo.findOneByUuidAndDeleted(uuid, false);
         String login = userUpdateCommand.getLogin();
@@ -51,6 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserData changePassword(UUID uuid, UserChangePasswordCommand userChangePasswordCommand)
             throws IllegalAccessException {
         User user = userRepo.findOneByUuidAndDeleted(uuid, false);
@@ -63,6 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void delete(UUID uuid) {
         User user = userRepo.findOneByUuidAndDeleted(uuid, false);
         user.setDeleted(true);

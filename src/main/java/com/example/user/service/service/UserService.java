@@ -7,7 +7,6 @@ import com.example.user.service.dto.UserUpdateCommand;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 public interface UserService {
@@ -16,16 +15,12 @@ public interface UserService {
 
     UserData getOne(UUID uuid);
 
-    @Transactional
     UserData create(UserCreateCommand userCreateCommand);
 
-    @Transactional
     UserData update(UUID uuid, UserUpdateCommand userUpdateCommand);
 
-    @Transactional
     UserData changePassword(UUID uuid, UserChangePasswordCommand userChangePasswordCommand)
             throws IllegalAccessException;
 
-    @Transactional
     void delete(UUID uuid);
 }

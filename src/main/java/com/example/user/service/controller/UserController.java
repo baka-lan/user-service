@@ -26,8 +26,8 @@ public class UserController {
     }
 
     @GetMapping("{uuid}")
-    public UserData getOne(@PathVariable("uuid") String uuid) {
-        return userService.getOne(UUID.fromString(uuid));
+    public UserData getOne(@PathVariable("uuid") UUID uuid) {
+        return userService.getOne(uuid);
     }
 
     @PostMapping
@@ -36,20 +36,20 @@ public class UserController {
     }
 
     @PutMapping("{uuid}")
-    public UserData update(@PathVariable("uuid") String uuid, @RequestBody UserUpdateCommand userUpdateCommand) {
-        return userService.update(UUID.fromString(uuid), userUpdateCommand);
+    public UserData update(@PathVariable("uuid") UUID uuid, @RequestBody UserUpdateCommand userUpdateCommand) {
+        return userService.update(uuid, userUpdateCommand);
     }
 
     @PutMapping("{uuid}/change-password")
-    public UserData changePassword(@PathVariable("uuid") String uuid,
+    public UserData changePassword(@PathVariable("uuid") UUID uuid,
                            @RequestBody UserChangePasswordCommand userChangePasswordCommand)
             throws IllegalAccessException {
-        return userService.changePassword(UUID.fromString(uuid), userChangePasswordCommand);
+        return userService.changePassword(uuid, userChangePasswordCommand);
     }
 
     @DeleteMapping("{uuid}")
-    public void delete(@PathVariable("uuid") String uuid) {
-        userService.delete(UUID.fromString(uuid));
+    public void delete(@PathVariable("uuid") UUID uuid) {
+        userService.delete(uuid);
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "IllegalAccessException exception! check arguments!")
