@@ -48,10 +48,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserData update(UUID uuid, UserUpdateCommand userUpdateCommand) {
         User user = getUser(uuid);
-        String login = userUpdateCommand.getLogin();
-        if (!login.isEmpty()) {
-            user.setLogin(login);
-        }
+        user.setLogin(userUpdateCommand.getLogin());
         return userMapper.userToUserData(userRepo.save(user));
     }
 
