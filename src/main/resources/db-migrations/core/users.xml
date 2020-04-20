@@ -24,13 +24,32 @@
     <changeSet id="2020-04-17--01--users-add-initial-data" author="e.baklanov">
         <loadData
                 file="classpath:db-migrations/data/csv/users.csv"
-                separator=","
                 tableName="users">
             <column header="uuid" name="uuid" type="STRING" />
             <column header="login" name="login" type="STRING" />
             <column header="password" name="password" type="STRING" />
             <column header="deleted" name="deleted" type="BOOLEAN" />
         </loadData>
+    </changeSet>
+    <changeSet id="2020-04-20--01--users-add-full-name" author="e.baklanov">
+        <addColumn tableName="users">
+            <column name="firstname" type="TEXT" />
+            <column name="middlename" type="TEXT" />
+            <column name="lastname" type="TEXT" />
+        </addColumn>
+    </changeSet>
+    <changeSet id="2020-04-20--02--users-update-initial-data" author="e.baklanov">
+        <loadUpdateData
+                file="classpath:db-migrations/data/csv/usersv2.csv"
+                tableName="users" primaryKey="uuid">
+            <column header="uuid" name="uuid" type="STRING" />
+            <column header="login" name="login" type="STRING" />
+            <column header="firstname" name="firstname" type="STRING" />
+            <column header="middlename" name="middlename" type="STRING" />
+            <column header="lastname" name="lastname" type="STRING" />
+            <column header="password" name="password" type="STRING" />
+            <column header="deleted" name="deleted" type="BOOLEAN" />
+        </loadUpdateData>
     </changeSet>
 
 </databaseChangeLog>

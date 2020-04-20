@@ -1,0 +1,19 @@
+uuid,login,firstname,middlename,lastname,password,deleted
+"03981c59-9fe0-4983-b78a-e53bc95d9c30","Krosha","Ivan","Sergeevich","Kroshkin","$2a$10$W4MxtjTiFhbAnaAJP0qZrO.lYS10vEZPFRdfAQ4cl54lGlij0B/Jm",NULL
+"7acdefdd-3c15-4b40-bb3e-6db55defb4cb","Tosha","Anton","Ivanovich","Kapustin","$2a$10$C.UdrshTIrV91aqiOBqfAOswvgw6NHny3xwKmuBYXltav3nwmbw5G",false
+"c2a20b6e-0521-44cc-98e0-c403afd489ec","Grisha","Grigoriy","Ilyich","Pushkin","$2a$10$3rLbVQf/OmByglpw3sOqhO8oVZHU2R7DvOuLlw.73zF8HbAHuPlJu",false
+"2c0a1fd5-eace-4acd-a6c1-39a284c4ca1e","Vasya","Vasiliy","Anatolievich","Gusinskiy","$2a$10$RHKxfuKCfaWVyb.8lBVNfezgl5VpHc.0UkAl9ry/f/EyR/pWERv66",false
+"79318513-242b-4d5d-b653-c1b74c13ea4f","Petya","Petr","Vitalievich","Osokin","$2a$10$4T94r09Zbd6ZkQ4QJKu/AOOs.hmI2Tblp2Y6aYlSyxx3Hlfo5dA0y",false
+"26f98923-4e2a-44ca-93c8-b2166660e8be","Dasha","Darya","Viktorovna","Besh","$2a$10$ObZzMTnXiFxXuveyPwkwJuG0qHkt3opBlFQrxm.Hhfa6rwcSvCCOy",false
+"a3f6c84c-d29c-4cf1-888e-6c9a0cb22c8d","Kon'","Aleksey","Maksimovich","Konchenko","$2a$10$codW5Nxp3BoWMqgEPEYwVemo/rBDqcDkuuIVsGGGXtgHCAKOrUFcW",false
+"f77d2aad-b449-4f35-9c82-8f5e964c2c0e","Palto","Petr","Petrovich","Vasichenko","$2a$10$j0ZS135uzGCrG1nOasNCk.It75z.axvuEolcspXcNEjDlxPD5wTVO",false
+"02bdd6db-3957-40e5-b118-9e98a7d622e2","Teplo","Tatyana","Alekseevna","Pishkina","$2a$10$Kwzotd2iIb6YiTDrRH6VQOpldR0JrgXY3sKYFPRtF6TSuaoMSql9q",true
+"81701df1-cc06-4d89-8a2c-f2024edd92c7","Treplo","Vasiliy","Ivanovich","Pomelo","$2a$10$Iy5qbYvPF8heTyCsL0HKt.9qNPJ19te.cVZfzn9LBSAAv8kjK7sDO",false
+"3b94b048-461c-44e8-b33e-025c0cc69231","Kreplo","Dmitriy","Grigorievich","Dubov","$2a$10$oBPvAMfktEwpOigza9cJAeLIFQqDjzPN49mNS5OVQt34yyUWGWHOS",false
+"b19de146-ef2e-48f9-8d90-c44ac2b2ce6a","Kriplo","Konstantin","Rinatovich","Ploshkin","$2a$10$KLihDx9IjAcibLy8aMbQ3OXardSmqEfSZ8FnljqJH//E7WmKTqzLG",false
+"585c0719-b3c9-40aa-928b-51a2dcad7538","Kripto","Konstantin","Eduardovich","Rosenkraft","$2a$10$8YBpa3eztq5SN5wb5mWnQOaP7ejF1LB/5FEr8AkuBidcFErsGQdg2",false
+"e3a42627-6027-4425-af20-3ad7d9792728","Kristo","Kristina","Valentinovna","Ostapenko","$2a$10$vmbmjDof4DysRE7zM69qDuHf1L7mLFe6hUSG2U6vf3L.5ITnDScv2",false
+"6f2be653-d12c-46b5-8419-fdc2a3d9ce1d","Graf Monte-Kriplo","Maksim","Rinatovich","Ploshkin","$2a$10$w3hwFHYvIWNFt3MG8Flki.hYqy6KhNZ9RQLmYDtHCBtYqyTpoDhFi",false
+"6ffeb9ac-0571-49ff-bf34-f20da52a2e1c","olya","Olga","Vasilievna","Knyazeva","$2a$10$njAW2PCEj300RRjSIviv2uq9yWAfaCkwwRk59JMX84AW7Gd4xDEgW",false
+"7218a010-a758-4884-8544-69fb35c08899","aylo","Alevtina","Vasilievna","Knyazeva","$2a$10$D4OM63SjU8/QwMtJoaEO7unSon7J0T2AzzGfVj5aiEwls666/lnm2",false
+"d5458ea5-ea6c-4aa3-ab71-61596d089a7d","kosmos","Dmitriy","Petrovich","Diujev","$2a$10$.GcXu9gab0RKrgXHkxc7KOnQtJubgfUbw1TC54U3aqxV6dDMduq8G",false

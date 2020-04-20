@@ -15,6 +15,15 @@ public class User {
     @Column(name = "login", nullable = false)
     private String login;
 
+    @Column(name = "firstname", nullable = false)
+    private String firstname;
+
+    @Column(name = "middlename", nullable = false)
+    private String middlename;
+
+    @Column(name = "lastname", nullable = false)
+    private String lastname;
+
     @Column(name = "password", nullable = false)
     private String password;
 
