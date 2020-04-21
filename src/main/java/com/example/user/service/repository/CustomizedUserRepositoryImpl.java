@@ -27,17 +27,17 @@ public class CustomizedUserRepositoryImpl implements CustomizedUserRepository {
         Predicate currentPredicate = cb.equal(user.get("deleted"), filter.isDeleted());
         String firstname = filter.getFirstname();
         if (Strings.isNotBlank(firstname)) {
-            Predicate firstNamePredicate = cb.equal(user.get("firstname"), firstname);
+            Predicate firstNamePredicate = cb.equal(cb.lower(user.get("firstname")), firstname.toLowerCase());
             currentPredicate = cb.and(currentPredicate, firstNamePredicate);
         }
         String middlename = filter.getMiddlename();
         if (Strings.isNotBlank(middlename)) {
-            Predicate middleNamePredicate = cb.equal(user.get("middlename"), middlename);
+            Predicate middleNamePredicate = cb.equal(cb.lower(user.get("middlename")), middlename.toLowerCase());
             currentPredicate = cb.and(currentPredicate, middleNamePredicate);
         }
         String lastname = filter.getLastname();
         if (Strings.isNotBlank(lastname)) {
-            Predicate lastNamePredicate = cb.equal(user.get("lastname"), lastname);
+            Predicate lastNamePredicate = cb.equal(cb.lower(user.get("lastname")), lastname.toLowerCase());
             currentPredicate = cb.and(currentPredicate, lastNamePredicate);
         }
         cq.where(currentPredicate);
