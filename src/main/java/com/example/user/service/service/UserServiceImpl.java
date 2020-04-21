@@ -7,6 +7,7 @@ import com.example.user.service.mapper.UserMapper;
 import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
@@ -54,7 +56,22 @@ public class UserServiceImpl implements UserService {
     public UserData update(UUID uuid, UserUpdateCommand userUpdateCommand) {
         User user = getUser(uuid);
 
-        user.setLogin(userUpdateCommand.getLogin());
+        String login = userUpdateCommand.getLogin();
+        if (Strings.isNotBlank(login)) {
+            user.setLogin(login);
+        }
+        String firstname = userUpdateCommand.getFirstname();
+        if (Strings.isNotBlank(firstname)) {
+            user.setFirstname(firstname);
+        }
+        String middlename = userUpdateCommand.getMiddlename();
+        if (Strings.isNotBlank(middlename)) {
+            user.setMiddlename(middlename);
+        }
+        String lastname = userUpdateCommand.getLastname();
+        if (Strings.isNotBlank(lastname)) {
+            user.setLastname(lastname);
+        }
         return userMapper.userToUserData(userRepo.save(user));
     }
 

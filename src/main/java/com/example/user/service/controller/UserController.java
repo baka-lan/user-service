@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PutMapping("{uuid}")
-    public UserData update(@PathVariable("uuid") UUID uuid, @RequestBody @Valid UserUpdateCommand userUpdateCommand) {
+    public UserData update(@PathVariable("uuid") UUID uuid, @RequestBody UserUpdateCommand userUpdateCommand) {
         return userService.update(uuid, userUpdateCommand);
     }
 
