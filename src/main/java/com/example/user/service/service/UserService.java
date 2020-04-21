@@ -1,12 +1,10 @@
 package com.example.user.service.service;
 
-import com.example.user.service.dto.UserChangePasswordCommand;
-import com.example.user.service.dto.UserCreateCommand;
-import com.example.user.service.dto.UserData;
-import com.example.user.service.dto.UserUpdateCommand;
+import com.example.user.service.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
@@ -14,6 +12,8 @@ public interface UserService {
     Page<UserData> getAll(Pageable pageable);
 
     UserData getOne(UUID uuid);
+
+    List<UserData> getByFullName(FullNameFilter fullNameFilter);
 
     UserData create(UserCreateCommand userCreateCommand);
 

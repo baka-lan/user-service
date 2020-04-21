@@ -1,9 +1,6 @@
 package com.example.user.service.controller;
 
-import com.example.user.service.dto.UserChangePasswordCommand;
-import com.example.user.service.dto.UserCreateCommand;
-import com.example.user.service.dto.UserData;
-import com.example.user.service.dto.UserUpdateCommand;
+import com.example.user.service.dto.*;
 import com.example.user.service.exceptions.InvalidOldPasswordException;
 import com.example.user.service.exceptions.UserNotFoundException;
 import com.example.user.service.service.UserService;
@@ -16,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -33,6 +31,14 @@ public class UserController {
     @GetMapping("{uuid}")
     public UserData getOne(@PathVariable("uuid") UUID uuid) {
         return userService.getOne(uuid);
+    }
+
+    @GetMapping("fullname")
+    public List<UserData> getByFullName(@RequestParam(required = false) String firstname,
+                                        @RequestParam(required = false) String middlename,
+                                        @RequestParam(required = false) String lastname) {
+        FullNameFilter fullNameFilter = new FullNameFilter(firstname, middlename, lastname, false);
+        return userService.getByFullName(fullNameFilter);
     }
 
     @PostMapping

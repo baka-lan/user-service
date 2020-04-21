@@ -1,21 +1,20 @@
 package com.example.user.service.service;
 
-import com.example.user.service.dto.UserChangePasswordCommand;
-import com.example.user.service.dto.UserCreateCommand;
-import com.example.user.service.dto.UserData;
-import com.example.user.service.dto.UserUpdateCommand;
+import com.example.user.service.dto.*;
 import com.example.user.service.exceptions.InvalidOldPasswordException;
 import com.example.user.service.exceptions.UserNotFoundException;
 import com.example.user.service.mapper.UserMapper;
 import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,6 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserData> getByFullName(FullNameFilter fullNameFilter) {
+        return userMapper.userToUserData(userRepo.findByFullName(fullNameFilter));
+    }
+
+    @Override
     @Transactional
     public UserData create(UserCreateCommand userCreateCommand) {
         userCreateCommand.setPassword(passwordEncoder.encode(userCreateCommand.getPassword()));
@@ -48,6 +52,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserData update(UUID uuid, UserUpdateCommand userUpdateCommand) {
         User user = getUser(uuid);
+
         user.setLogin(userUpdateCommand.getLogin());
         return userMapper.userToUserData(userRepo.save(user));
     }
