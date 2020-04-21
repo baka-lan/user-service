@@ -3,6 +3,7 @@ package com.example.user.service.service;
 import com.example.user.service.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +14,7 @@ public interface UserService {
 
     UserData getOne(UUID uuid);
 
-    List<UserData> getByFullName(FullNameFilter fullNameFilter);
+    List<UserData> getByFullName(FullNameFilter fullNameFilter, Pageable pageable);
 
     UserData create(UserCreateCommand userCreateCommand);
 

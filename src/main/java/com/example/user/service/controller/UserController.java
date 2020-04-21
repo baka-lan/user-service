@@ -36,9 +36,10 @@ public class UserController {
     @GetMapping("fullname")
     public List<UserData> getByFullName(@RequestParam(required = false) String firstname,
                                         @RequestParam(required = false) String middlename,
-                                        @RequestParam(required = false) String lastname) {
+                                        @RequestParam(required = false) String lastname,
+                                        @PageableDefault Pageable pageable) {
         FullNameFilter fullNameFilter = new FullNameFilter(firstname, middlename, lastname, false);
-        return userService.getByFullName(fullNameFilter);
+        return userService.getByFullName(fullNameFilter, pageable);
     }
 
     @PostMapping

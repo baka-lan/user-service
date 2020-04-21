@@ -3,6 +3,7 @@ package com.example.user.service.repository;
 import com.example.user.service.dto.FullNameFilter;
 import com.example.user.service.model.User;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,7 +19,7 @@ public class CustomizedUserRepositoryImpl implements CustomizedUserRepository {
     private EntityManager em;
 
     @Override
-    public List<User> findByFullName(FullNameFilter filter) {
+    public List<User> findByFullName(FullNameFilter filter, Pageable pageable) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
 
@@ -42,6 +43,8 @@ public class CustomizedUserRepositoryImpl implements CustomizedUserRepository {
         cq.where(currentPredicate);
 
         TypedQuery<User> query = em.createQuery(cq);
+        query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        query.setMaxResults(pageable.getPageSize());
         return query.getResultList();
     }
 }

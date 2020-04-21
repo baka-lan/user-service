@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +38,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserData> getByFullName(FullNameFilter fullNameFilter) {
-        return userMapper.userToUserData(userRepo.findByFullName(fullNameFilter));
+    public List<UserData> getByFullName(FullNameFilter fullNameFilter, Pageable pageable) {
+        return userMapper.userToUserData(userRepo.findByFullName(fullNameFilter, pageable));
     }
 
     @Override
