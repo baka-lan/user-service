@@ -8,6 +8,7 @@ import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
 import com.example.user.service.specification.UserSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly=true)
+    @Cacheable(value = "users")
     public Page<UserData> getAll(Pageable pageable) {
         Page<User> userPage = userRepo.findAllByDeleted(false, pageable);
         return userPage.map(userMapper::userToUserData);
@@ -32,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly=true)
+    @Cacheable(value = "users", key = "#uuid")
     public UserData getOne(UUID uuid) {
         User user = getUser(uuid);
         return userMapper.userToUserData(user);
@@ -39,6 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly=true)
+    @Cacheable(value = "users", key = "#fullNameFilter")
     public Page<UserData> getByFullName(FullNameFilter fullNameFilter, Pageable pageable) {
         Page<User> userPage = userRepo.findAll(UserSpecification.userByFullName(fullNameFilter), pageable);
         return userPage.map(userMapper::userToUserData);

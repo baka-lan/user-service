@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         dynamicConfig="true"
+         monitoring="autodetect"
+         updateCheck="true"
+>
+    <cache name="users"
+           maxElementsInMemory="1000"
+           overflowToDisk="false"
+           timeToLiveSeconds="86400"
+           memoryStoreEvictionPolicy="LFU"
+           statistics="true"
+    />
+
+    <diskStore path="/tmp"/>
+</ehcache>
