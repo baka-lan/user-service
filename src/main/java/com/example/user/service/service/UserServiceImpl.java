@@ -6,18 +6,14 @@ import com.example.user.service.exceptions.UserNotFoundException;
 import com.example.user.service.mapper.UserMapper;
 import com.example.user.service.model.User;
 import com.example.user.service.repository.UserRepository;
+import com.example.user.service.specification.UserSpecification;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -40,8 +36,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserData> getByFullName(FullNameFilter fullNameFilter, Pageable pageable) {
-        return userMapper.userToUserData(userRepo.findByFullName(fullNameFilter, pageable));
+    public Page<UserData> getByFullName(FullNameFilter fullNameFilter, Pageable pageable) {
+        Page<User> userPage = userRepo.findAll(UserSpecification.userByFullName(fullNameFilter), pageable);
+        return userPage.map(userMapper::userToUserData);
     }
 
     @Override

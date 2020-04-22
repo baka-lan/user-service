@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -34,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("fullname")
-    public List<UserData> getByFullName(@RequestParam(required = false) String firstname,
+    public Page<UserData> getByFullName(@RequestParam(required = false) String firstname,
                                         @RequestParam(required = false) String middlename,
                                         @RequestParam(required = false) String lastname,
                                         @PageableDefault Pageable pageable) {
