@@ -4,6 +4,7 @@ import com.example.user.service.dto.*;
 import com.example.user.service.exceptions.InvalidOldPasswordException;
 import com.example.user.service.exceptions.UserNotFoundException;
 import com.example.user.service.service.UserService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @Slf4j
+@Api(value = "UserController")
 @RestController
 @RequestMapping("user")
 @RequiredArgsConstructor
