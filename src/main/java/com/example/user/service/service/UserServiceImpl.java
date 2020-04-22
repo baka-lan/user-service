@@ -54,25 +54,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserData update(UUID uuid, UserUpdateCommand userUpdateCommand) {
-        User user = getUser(uuid);
+        User userFromDb = getUser(uuid);
 
-        String login = userUpdateCommand.getLogin();
-        if (Strings.isNotBlank(login)) {
-            user.setLogin(login);
-        }
-        String firstname = userUpdateCommand.getFirstname();
-        if (Strings.isNotBlank(firstname)) {
-            user.setFirstname(firstname);
-        }
-        String middlename = userUpdateCommand.getMiddlename();
-        if (Strings.isNotBlank(middlename)) {
-            user.setMiddlename(middlename);
-        }
-        String lastname = userUpdateCommand.getLastname();
-        if (Strings.isNotBlank(lastname)) {
-            user.setLastname(lastname);
-        }
-        return userMapper.userToUserData(userRepo.save(user));
+        User updatedUser = userMapper.userUpdateCommandToUser(userUpdateCommand);
+        updatedUser.setUuid(userFromDb.getUuid());
+        updatedUser.setPassword(userFromDb.getPassword());
+        return userMapper.userToUserData(userRepo.save(updatedUser));
     }
 
     @Override
