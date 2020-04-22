@@ -12,8 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -24,18 +24,21 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional(readOnly=true)
     public Page<UserData> getAll(Pageable pageable) {
         Page<User> userPage = userRepo.findAllByDeleted(false, pageable);
         return userPage.map(userMapper::userToUserData);
     }
 
     @Override
+    @Transactional(readOnly=true)
     public UserData getOne(UUID uuid) {
         User user = getUser(uuid);
         return userMapper.userToUserData(user);
     }
 
     @Override
+    @Transactional(readOnly=true)
     public Page<UserData> getByFullName(FullNameFilter fullNameFilter, Pageable pageable) {
         Page<User> userPage = userRepo.findAll(UserSpecification.userByFullName(fullNameFilter), pageable);
         return userPage.map(userMapper::userToUserData);
