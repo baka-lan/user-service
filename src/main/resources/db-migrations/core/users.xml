@@ -16,11 +16,13 @@
             </column>
         </createTable>
     </changeSet>
+
     <changeSet id="2020-04-16--01--users-add-delete-column" author="e.baklanov">
         <addColumn tableName="users">
             <column name="deleted" type="BOOLEAN" defaultValueBoolean="false" />
         </addColumn>
     </changeSet>
+
     <changeSet id="2020-04-17--01--users-add-initial-data" author="e.baklanov">
         <loadData
                 file="classpath:db-migrations/data/csv/users.csv"
@@ -31,6 +33,7 @@
             <column header="deleted" name="deleted" type="BOOLEAN" />
         </loadData>
     </changeSet>
+
     <changeSet id="2020-04-20--01--users-add-full-name" author="e.baklanov">
         <addColumn tableName="users">
             <column name="firstname" type="TEXT" />
@@ -38,6 +41,7 @@
             <column name="lastname" type="TEXT" />
         </addColumn>
     </changeSet>
+
     <changeSet id="2020-04-20--02--users-update-initial-data" author="e.baklanov">
         <loadUpdateData
                 file="classpath:db-migrations/data/csv/usersv2.csv"
